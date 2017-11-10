@@ -32,7 +32,6 @@ const mapDispatchToProps = function(dispatch) {
     handleSubmit(event) {
         event.preventDefault();
         let search = event.target.location.value;
-        console.log("search: ", search);
         dispatch(setLocation(search));
         dispatch(me())
     }
