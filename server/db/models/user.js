@@ -16,6 +16,14 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  longitude: {
+    type: Sequelize.FLOAT,
+    defaultValue: 40.7128
+  },
+  latitude: {
+    type: Sequelize.FLOAT,
+    defaultValue: 74.0060
   }
 })
 

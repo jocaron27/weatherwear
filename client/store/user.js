@@ -47,6 +47,13 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const setLocation = (address) =>
+dispatch =>
+  axios.get(`/api/location/?location=${address}`)
+    .then(res => axios.put('/api/users/location', res.data))
+    .then(res => dispatch(getUser(res.data)))
+    .catch(err => console.log(err))
+
 /**
  * REDUCER
  */
