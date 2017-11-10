@@ -9,6 +9,8 @@ router.get('/', (req, res, next) => {
     const longitude = req.query.longitude;
     return axios.get(`https://api.darksky.net/forecast/${process.env.DARKSKY_KEY}/${latitude},${longitude}`)
     .then(response => res.send({
+        time: response.data.daily.data[0].time,
+        timezone: response.data.timezone,
         summary: response.data.daily.data[0].summary,
         icon: response.data.daily.data[0].icon,
         precip: response.data.daily.data[0].precipProbability,

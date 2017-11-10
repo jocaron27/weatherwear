@@ -12,8 +12,8 @@ function Weather(props) {
         <h1>{location}</h1>
         <h2>{date}</h2>
         <p>{summary}</p>
-        <div style={{'max-width': '20%'}}>
-          <Skycon icon={formattedIcon} />
+        <div style={{maxWidth: '20%'}}>
+          <Skycon icon={formattedIcon || "CLOUDY"} />
         </div>
         <p>{Math.round(precip * 100)}% chance of rain</p>
         <p>Low: {lo}</p>

@@ -36,6 +36,7 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data))
+        dispatch(fetchWeather(res.data.latitude, res.data.longitude))
         history.push('/home')
       })
       .catch(error =>

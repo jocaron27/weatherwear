@@ -1,5 +1,6 @@
 import axios from 'axios'
-var dateFormat = require('dateformat');
+var dateFormat = require('dateformat')
+var moment = require('moment-timezone');
 
 /**
  * ACTION TYPES
@@ -36,20 +37,17 @@ const getHi = hi => ({type: GET_HI, hi})
 /**
  * THUNK CREATORS
  */
-export const newDate = () =>
+export const newDate = (date, tz) =>
   dispatch => {
-    var now = new Date();
-    console.log("now :", now);
-    var formatted = dateFormat(now, 'dddd, mmmm dS, yyyy');
-    console.log("date :", formatted);
-    dispatch(getDate(formatted))
+    var now = moment.tz(date * 1000, tz).format('MMMM Do YYYY');
+    dispatch(getDate(now))
 }
 
 export const fetchWeather = (latitude, longitude) =>
   dispatch =>
     axios.get(`/api/weather/?latitude=${latitude}&longitude=${longitude}`)
     .then(res => {
-        dispatch(newDate())
+        dispatch(newDate(res.data.time, res.data.timezone))
         dispatch(getSummary(res.data.summary))
         dispatch(getIcon(res.data.icon))
         dispatch(getPrecip(res.data.precip))
