@@ -39,7 +39,9 @@ const getHi = hi => ({type: GET_HI, hi})
 export const newDate = () =>
   dispatch => {
     var now = new Date();
+    console.log("now :", now);
     var formatted = dateFormat(now, 'dddd, mmmm dS, yyyy');
+    console.log("date :", formatted);
     dispatch(getDate(formatted))
 }
 
@@ -47,6 +49,7 @@ export const fetchWeather = (latitude, longitude) =>
   dispatch =>
     axios.get(`/api/weather/?latitude=${latitude}&longitude=${longitude}`)
     .then(res => {
+        dispatch(newDate())
         dispatch(getSummary(res.data.summary))
         dispatch(getIcon(res.data.icon))
         dispatch(getPrecip(res.data.precip))

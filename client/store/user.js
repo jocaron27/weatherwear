@@ -54,7 +54,10 @@ export const setLocation = (address) =>
 dispatch =>
   axios.get(`/api/location/?location=${address}`)
     .then(res => axios.put('/api/users/location', res.data))
-    .then(res => dispatch(getUser(res.data)))
+    .then(res => {
+      dispatch(getUser(res.data))
+      dispatch(fetchWeather(res.data.latitude, res.data.longitude))      
+    })
     .then(dispatch(me()))
     .catch(err => console.log(err))
 
