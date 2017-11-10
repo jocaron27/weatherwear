@@ -3,6 +3,7 @@ const {Item} = require('../db/models')
 module.exports = router
 
 //get all items
+//api/items
 router.get('/', (req, res, next) => {
   Item.findAll()
     .then(items => res.json(items))

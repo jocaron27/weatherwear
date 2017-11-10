@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {fetchWeather} from './weather'
 
 /**
  * ACTION TYPES
@@ -24,8 +25,10 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
-      .then(res =>
-        dispatch(getUser(res.data || defaultUser)))
+      .then(res => {
+        dispatch(getUser(res.data || defaultUser))
+        dispatch(fetchWeather(res.data.latitude, res.data.longitude))
+      })
       .catch(err => console.log(err))
 
 export const auth = (email, password, method) =>
@@ -52,6 +55,7 @@ dispatch =>
   axios.get(`/api/location/?location=${address}`)
     .then(res => axios.put('/api/users/location', res.data))
     .then(res => dispatch(getUser(res.data)))
+    .then(dispatch(me()))
     .catch(err => console.log(err))
 
 /**

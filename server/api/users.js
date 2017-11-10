@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
       where: {
         id: req.user.id
       },
-      attributes: ['id', 'email', 'longitude', 'latitude']
+      attributes: ['id', 'email', 'longitude', 'latitude', 'location']
     })
       .then(user => res.json(user))
       .catch(next)
@@ -24,7 +24,8 @@ router.get('/', (req, res, next) => {
 router.put('/location', (req, res, next) => {
   if (req.user) {
     User.findById(req.user.id)
-      .then(user => user.update({latitude: req.body.lat, longitude: req.body.lng}))
+      .then(user => user.update({latitude: req.body.lat, longitude: req.body.lng, location: req.body.location}))
+      .then(user => res.json(user))
       .catch(next)
   } else {
     res.sendStatus(401)

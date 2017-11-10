@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import Search from './search'
+import Weather from './weather'
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ const Main = (props) => {
               <a href="#" onClick={handleClick}>Logout</a>
             </nav>
             <Search />
+            <Weather />
             </div>
             : <div>
             <nav>

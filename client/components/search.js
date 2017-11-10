@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setLocation, me } from '../store/user';
+import { setLocation } from '../store/user';
 
 function Search(props) {
-  const {latitude, longitude, handleSubmit} = props;
-  console.log(latitude);
-  console.log(longitude);
+  const {handleSubmit} = props;
   return (
     <div>
         <form className="form-group" onSubmit={handleSubmit}>
@@ -33,7 +31,6 @@ const mapDispatchToProps = function(dispatch) {
         event.preventDefault();
         let search = event.target.location.value;
         dispatch(setLocation(search));
-        dispatch(me())
     }
   };
 };

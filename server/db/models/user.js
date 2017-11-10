@@ -24,6 +24,10 @@ const User = db.define('user', {
   latitude: {
     type: Sequelize.FLOAT,
     defaultValue: 74.0060
+  },
+  location: {
+    type: Sequelize.STRING,
+    defaultValue: 'New York, NY, USA'
   }
 })
 
