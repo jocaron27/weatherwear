@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {fetchWeather} from './weather'
+import {fetchWeather, setDay} from './weather'
 
 /**
  * ACTION TYPES
@@ -27,6 +27,7 @@ export const me = () =>
     axios.get('/auth/me')
       .then(res => {
         dispatch(getUser(res.data || defaultUser))
+        dispatch(setDay(0))
         dispatch(fetchWeather(res.data.latitude, res.data.longitude, 0))
       })
       .catch(err => console.log(err))
@@ -36,6 +37,7 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data))
+        dispatch(setDay(0))
         dispatch(fetchWeather(res.data.latitude, res.data.longitude, 0))
         history.push('/home')
       })
@@ -57,6 +59,7 @@ dispatch =>
     .then(res => axios.put('/api/users/location', res.data))
     .then(res => {
       dispatch(getUser(res.data))
+      dispatch(setDay(0))
       dispatch(fetchWeather(res.data.latitude, res.data.longitude, 0))      
     })
     .then(dispatch(me()))
