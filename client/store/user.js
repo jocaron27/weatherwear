@@ -27,7 +27,7 @@ export const me = () =>
     axios.get('/auth/me')
       .then(res => {
         dispatch(getUser(res.data || defaultUser))
-        dispatch(fetchWeather(res.data.latitude, res.data.longitude))
+        dispatch(fetchWeather(res.data.latitude, res.data.longitude, 0))
       })
       .catch(err => console.log(err))
 
@@ -36,7 +36,7 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data))
-        dispatch(fetchWeather(res.data.latitude, res.data.longitude))
+        dispatch(fetchWeather(res.data.latitude, res.data.longitude, 0))
         history.push('/home')
       })
       .catch(error =>
@@ -57,7 +57,7 @@ dispatch =>
     .then(res => axios.put('/api/users/location', res.data))
     .then(res => {
       dispatch(getUser(res.data))
-      dispatch(fetchWeather(res.data.latitude, res.data.longitude))      
+      dispatch(fetchWeather(res.data.latitude, res.data.longitude, 0))      
     })
     .then(dispatch(me()))
     .catch(err => console.log(err))

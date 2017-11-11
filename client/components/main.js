@@ -5,6 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import Search from './search'
 import Weather from './weather'
+import Suggestions from './suggestions'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ const Main = (props) => {
             </nav>
             <Search />
             <Weather />
+            <Suggestions />
             </div>
             : <div>
             <nav>
