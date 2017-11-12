@@ -9,7 +9,7 @@ export default class Skycon extends React.Component {
     render () {
       return (
         <Skycons 
-          color='black' 
+          color='#1a4990' 
           icon={this.props.icon} 
           autoplay={true}
         />

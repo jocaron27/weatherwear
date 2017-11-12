@@ -5,11 +5,11 @@ import { setLocation } from '../store/user';
 function Search(props) {
   const {handleSubmit} = props;
   return (
-    <div>
+    <div className="search">
         <form className="form-group" onSubmit={handleSubmit}>
             <input
                 className="list-group"
-                placeholder="Search Your City (ex: New York, NY)"
+                placeholder="Search a new city"
                 type="text"
                 name="location"
             />

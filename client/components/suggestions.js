@@ -10,8 +10,11 @@ function Suggestions(props) {
 
 
   return (
-    <div>
-        {allSuggestions.map(suggestion => <div key={suggestion.itemId}>{items.find(item => item.id === suggestion.itemId).name}</div>)}
+    <div id="suggestions" className="suggestions">
+      <div className="suggestions-header"><h2>Today's Wearables</h2><hr /></div>
+      <div className="suggestions-items">
+        {allSuggestions.map(suggestion => <div className="suggestions-single" key={suggestion.itemId}><img className="suggestions-single-icon" src={items.find(item => item.id === suggestion.itemId).icon} /><p>{items.find(item => item.id === suggestion.itemId).name}</p></div>)}
+      </div>
     </div>
   );
 }

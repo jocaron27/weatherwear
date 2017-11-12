@@ -15,6 +15,7 @@ const GET_PRECIP_ID = 'GET_PRECIP_ID'
 const GET_CLOUD_ID = 'GET_CLOUD_ID'
 const GET_TEMP_ID = 'GET_TEMP_ID'
 const SET_DAY = 'SET_DAY'
+const SET_UNIT = 'SET_UNIT'
 
 /**
  * INITIAL STATE
@@ -29,7 +30,8 @@ const weather = {
     hi: 0,
     precipId: 0,
     cloudId: 0,
-    tempId: 0
+    tempId: 0,
+    unit: 'F'
 }
 
 /**
@@ -45,6 +47,7 @@ const getPrecipId = id => ({type: GET_PRECIP_ID, id})
 const getCloudId = id => ({type: GET_CLOUD_ID, id})
 const getTempId = id => ({type: GET_TEMP_ID, id})
 export const setDay = day => ({type: SET_DAY, day})
+export const setUnit = unit => ({type: SET_UNIT, unit})
 
 /**
  * THUNK CREATORS
@@ -54,7 +57,7 @@ function weatherIdCreator(weatherData) {
         return (precip > 0.3) ? 1 : 0;
     }
     function setCloudId(cloud) {
-        return (cloud > 0.3) ? 2 : 0;
+        return (cloud < 0.2) ? 2 : 0;
     }
     function setTempId(hi, lo) {
         let averageTemp = (hi + lo) / 2
@@ -135,6 +138,8 @@ export default function (state = weather, action) {
         return Object.assign({}, state, {tempId: action.id})
     case SET_DAY:
         return Object.assign({}, state, {day: action.day})
+    case SET_UNIT:
+        return Object.assign({}, state, {unit: action.unit})
     default:
       return state
   }

@@ -4,6 +4,13 @@ module.exports = router
 
 //get suggestions
 //api/suggestions/precip/id
+router.get('/', (req, res, next) => {
+  Suggestion.findAll()
+  .then(suggestions => res.json(suggestions))
+  .catch(next)
+})
+
+
 router.get('/precip/:id', (req, res, next) => {
   Suggestion.findAll({
     where: {

@@ -7,90 +7,96 @@ const items = [{
   id: 1,
   name: 'umbrella',
   type: 'accessory',
-  icon: ''
+  icon: '/umbrella.png'
 }, {
   id: 2,
   name: 'rainboots',
   type: 'shoes',
-  icon: '' 
+  icon: '/rainboots.png'
 }, {
   id: 3,
   name: 'raincoat',
   type: 'jacket',
-  icon: ''
+  icon: '/raincoat.png'
 }, {
   id: 4,
   name: 'sunglasses',
   type: 'accessory',
-  icon: ''
+  icon: '/sunglasses.png'
 }, {
   id: 5,
   name: 'thick coat',
   type: 'jacket',
-  icon: ''
+  icon: '/thickjacket.png'
 }, {
   id: 6,
   name: 'medium coat',
   type: 'jacket',
-  icon: ''
+  icon: '/mediumjacket.png'
 }, {
   id: 7,
   name: 'light coat',
   type: 'jacket',
-  icon: ''
+  icon: '/lightjacket.png'
 }, {
   id: 8,
   name: 'sweater',
   type: 'top',
-  icon: ''
+  icon: '/sweater.png'
 }, {
   id: 9,
   name: 'long pants',
   type: 'bottom',
-  icon: ''
+  icon: '/longpants.png'
 }, {
   id: 10,
   name: 'shorts',
   type: 'bottom',
-  icon: ''
+  icon: '/shorts.png'
 }, {
   id: 11,
   name: 'skirt',
   type: 'bottom',
   gender: 'female',
-  icon: ''
+  icon: '/skirt.png'
 }, {
   id: 12,
   name: 'gloves',
   type: 'accessory',
-  icon: ''
+  icon: '/gloves.png'
 }, {
   id: 13,
   name: 'hat',
   type: 'accessory',
-  icon: ''
+  icon: '/hat.png'
 }, {
   id: 14,
-  name: 'tshirt',
+  name: 't-shirt',
   type: 'top',
-  icon: ''
+  icon: '/tshirt.png'
 }, {
   id: 15,
-  name: 'tank',
+  name: 'sleeveless shirt',
   type: 'top',
-  icon: ''
+  icon: '/sleeveless.png'
 }, {
   id: 16,
-  name: 'flipflops',
+  name: 'sandals',
   type: 'shoes',
-  icon: ''
+  icon: '/sandals.png'
 }, {
   id: 17,
   name: 'dress',
   type: 'top',
   gender: 'female',
-  icon: ''
-}];
+  icon: '/dress.png'
+}, {
+  id: 18,
+  name: 'scarf',
+  type: 'accessory',
+  icon: '/scarf.png'
+}
+];
 
 
 const weathers = [{
@@ -161,11 +167,17 @@ const suggestions = [{
   weatherId: 3,
   itemId: 13
 }, {
+  weatherId: 3,
+  itemId: 18
+}, {
   weatherId: 4,
   itemId: 5
 }, {
   weatherId: 4,
   itemId: 9
+}, {
+  weatherId: 4,
+  itemId: 18
 }, {
   weatherId: 5,
   itemId: 6
@@ -175,6 +187,9 @@ const suggestions = [{
 }, {
   weatherId: 5,
   itemId: 9
+}, {
+  weatherId: 5,
+  itemId: 18
 }, {
   weatherId: 6,
   itemId: 6

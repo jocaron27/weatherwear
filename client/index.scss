@@ -1,7 +1,130 @@
-body {
-  font-family: sans-serif;
-  color: blue;
+/*--------- Fonts ---------- */
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans');
 
+/*--------- Large Screens ---------- */
+@media (min-width: 769px) {
+  .glyphicon-menu-down {
+    display: none;
+  }
+}
+
+/*--------- Mobile ---------- */
+@media (max-width: 768px) {
+  h1 {
+    &.logo {
+      font-size: 12vw !important;
+    }
+
+    img {
+      display: none;
+    }
+  }
+
+  .auth-form {
+    width: 85% !important;
+
+    form {
+      input {
+        width: 100% !important;
+      }
+    }
+  }
+
+  .weather-suggestions {
+    flex-direction: column;
+    margin-top: 0px !important;
+  }
+
+  .weather {
+    width: 100% !important;
+    padding: 0px !important;
+  }
+
+  .weather-info {
+    position: relative !important;
+    margin: auto !important;
+    box-shadow: none !important;
+  }
+
+  .weather-location {
+    margin-top: 0px;
+  }
+
+  .suggestions {
+    width: 100% !important;
+    margin-top: 0px !important;
+  }
+
+  .suggestions-header {
+    text-align: center;
+  }
+
+  .suggestions-single {
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 90% !important;
+    }
+  }
+
+  form {
+    width: 100% !important;
+  }
+
+  .search {
+    padding: 0px !important;
+
+    input {
+      position: relative;
+      margin: auto;
+    }
+
+    button {
+      position: relative;
+      margin: auto;
+    }
+  }
+}
+
+body {
+/*--------- General ---------- */
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  width: 100%;
+  background-color: rgba(191, 241, 234, 0.2);
+  // background-image: url('/bg1.png');
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  h1 {
+    &.logo {
+      background-color: #194890;
+      border-bottom: #f3e95f 5px solid;
+      font-family: 'Lora';
+      font-weight: 700;
+      color: #11d7ef;
+      font-size: 5vw;
+      text-indent: 46px;
+      margin: 0;
+      padding: 11px 0px 27px 0px;
+    }
+
+    img {
+      float: right; 
+      margin-top: 9px; 
+      width: 5%; 
+      margin-right: 42px;
+    }
+  }
+
+  span {
+    &.end {
+      color: #f3e95e;
+    }
+  }
+  
   a {
     text-decoration: none;
   }
@@ -10,13 +133,234 @@ body {
     display: block;
   }
 
-  nav a {
-    display: inline-block;
-    margin: 1em;
+  .glyphicon:hover {
+    cursor: pointer;
   }
 
-  form div {
-    margin: 1em;
-    display: inline-block;
+/*--------- Nav Bar ---------- */
+
+  nav {
+    background: black;
+    text-align: right;
+    & a {
+      display: inline-block;
+      margin: 7px 10px;
+      margin-right: 40px;
+      color: #00bcd4;
+    }
+
+    p {
+      float: left;
+      margin: 7px 10px;
+      margin-left: 40px;
+      color: #00bcd4;
+    }
+  }
+
+/*--------- Login ---------- */
+  .auth-form {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 50%;
+    padding: 25px 0px;
+    position: relative;
+    margin: auto;
+    margin-top: 70px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      div {
+        width: 85%;
+      }
+
+      input {
+        width: 75%;
+      }
+    }
+
+    .auth-or {
+      padding: 13px 0px;
+    }
+  }
+
+  .with-google {
+    text-align: center;
+    background-color: #cc2f2b;
+    color: white;
+    padding: 10px 50px;
+    font-weight: 400 !important;
+  }
+
+/*--------- Search ---------- */
+
+  .search {
+    display: flex;
+    padding: 7px 0px;
+    color: black;
+  }
+
+/*--------- Forms ---------- */
+  form {
+    margin-bottom: 0px !important;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    input {
+      width: 64%;
+      height: 45px;
+      margin-bottom: 0px !important;
+      font-size: 18px;
+      border: black 1px solid;
+      padding-left: 3% !important;
+    }
+    
+    button {
+      height: 45px;
+      background: #fc5e26;
+      color: #fff;
+      padding: 14px 37px 14px 37px;
+      border: none;
+      cursor: pointer;
+      margin: 5px 0 5px 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      outline: none;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      box-shadow: 0 5px #c3ecf0;
+    }
+  }
+
+/*--------- Weather + Suggestions Main Panel ---------- */
+  .weather-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+
+/*--------- Weather Panel ---------- */
+  .weather {
+    padding: 3%;
+    width: 33%;
+    color: white;
+    text-align: center;
+    
+    .weather-info {
+      // background-color: #65c6d8;
+      background-color: rgba(163, 224, 234, 0.59);
+      color: #1a4990;
+      border-bottom: 5px solid #ef5d36;
+      box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px;
+    }
+
+    .weather-location {
+      padding-top: 17px;
+    }
+
+    .weather-toggle {
+      display: flex;
+      align-items: center;
+      padding-bottom: 12px;
+      padding-top: 16px;
+      background-color: #1a4990;
+      position: relative;
+      margin: auto;
+      color: white;
+
+      button {
+        background-color: transparent;
+      }
+
+      button:disabled {
+        color: transparent;
+        border: transparent;
+        cursor: auto;
+      }
+    }
+
+    .glyphicon {
+      margin: auto;
+      border: 1px solid white;
+      border-radius: 100%;
+      padding: 7px;
+      cursor: pointer;
+    }
+
+    .weather-date {
+      position: relative;
+      margin: auto;
+    }
+
+    .weather-summary {
+      padding-top: 10px;
+    }
+
+    .weather-precip {
+      font-size: 20px;
+    }
+
+    .weather-temp {
+      display: flex;
+      justify-content: space-between;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 20px;
+    }
+
+    .glyphicon-menu-down {
+      margin-bottom: 20px;
+    }
+  }
+
+/*--------- Suggestions Panel ---------- */
+  .suggestions {
+    padding: 3%;
+    width: 64%;
+    background-color: white;
+    box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px;
+    margin-top: 55px;
+    margin-bottom: 120px;
+    border-bottom: 5px solid #ef5d36;
+
+    .suggestions-header {
+      font-family: 'Lora', serif;
+      max-width: 730px;
+      margin: 0 auto;
+
+      hr {
+        border-top: 2px solid #eee;
+      }
+    }
+
+    .suggestions-items {
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: 23px;
+    }
+
+    .suggestions-single {
+      margin: 24px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      width: 25%;
+
+      p {
+        font-size: 17px;
+        margin-top: 5px;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
   }
 }

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
-import Search from './search'
 import Weather from './weather'
 import Suggestions from './suggestions'
+import UserHome from './user-home'
 
 /**
  * COMPONENT
@@ -18,19 +18,24 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>WeatherWear</h1>
-      
         {
           isLoggedIn
             ? <div>
             <nav>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
+              <UserHome />
               <a href="#" onClick={handleClick}>Logout</a>
             </nav>
-            <Search />
-            <Weather />
-            <Suggestions />
+            <h1 className="logo">weather<span className="end">a</span>wear
+              <img
+                className="suggestions-single-icon"
+                src="/umbrella.png"
+              />
+            </h1>
+            <div className="weather-suggestions">
+              <Weather />
+              <Suggestions />
+            </div>
             </div>
             : <div>
             <nav>
@@ -38,9 +43,14 @@ const Main = (props) => {
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </nav>
+            <h1 className="logo">weather<span className="end">a</span>wear
+              <img
+                className="suggestions-single-icon"
+                src="/umbrella.png"
+              />
+            </h1>
             </div>
         }
-      <hr />
       {children}
     </div>
   )
