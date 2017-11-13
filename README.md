@@ -1,4 +1,5 @@
-#About
+About
+-------------
 
 WeatherAwear is a weather app providing weather-based apparel suggestions.
 
@@ -10,14 +11,17 @@ Users can:
 -Be given weather-based apparel suggestions for each day in the forecase
 -Switch between Fahrenheit and Celcius
 
-#Deployed on Heroku
+Deployed on Heroku
+---------------
 https://weatherawear.herokuapp.com/
 
-#Requirements
+Requirements
+---------------
 
 Node > 6.0
 
-#Run Locally
+Run Locally
+---------------
 
 git clone https://github.com/jocaron27/weatherwear.git
 npm install
@@ -25,7 +29,8 @@ npm run seed
 npm run start-dev
 view on localhost://8080
 
-#Looking Ahead
+Looking Ahead
+---------------
 
 Additional features in the works:
 
