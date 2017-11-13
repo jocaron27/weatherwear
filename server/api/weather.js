@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
         summary: response.data.daily.data[day].summary,
         icon: response.data.daily.data[day].icon,
         precip: response.data.daily.data[day].precipProbability,
+        preciptype: response.data.daily.data[day].precipType,
         cloud: response.data.daily.data[day].cloudCover,
         hi: response.data.daily.data[day].temperatureHigh,
         lo: response.data.daily.data[day].temperatureLow}))

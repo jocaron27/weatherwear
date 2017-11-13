@@ -95,6 +95,12 @@ const items = [{
   name: 'scarf',
   type: 'accessory',
   icon: '/scarf.png'
+},
+{
+  id: 19,
+  name: 'snow boots',
+  type: 'shoes',
+  icon: '/rainboots.png'
 }
 ];
 
@@ -105,38 +111,42 @@ const weathers = [{
   type: 'Precipitation'
 }, {
   id: 2,
+  name: 'snow',
+  type: 'Precipitation',
+}, {
+  id: 3,
   name: 'sun',
   type: 'Cloud Cover',
 }, {
-  id: 3,
+  id: 4,
   name: 'coldest',
   type: 'Temperature',
 }, {
-  id: 4,
+  id: 5,
   name: 'very cold',
   type: 'Temperature',
 }, {
-  id: 5,
+  id: 6,
   name: 'colder',
   type: 'Temperature',
 }, {
-  id: 6,
+  id: 7,
   name: 'average',
   type: 'Temperature',
 }, {
-  id: 7,
+  id: 8,
   name: 'warm',
   type: 'Temperature',
 }, {
-  id: 8,
+  id: 9,
   name: 'warmer',
   type: 'Temperature',
 }, {
-  id: 9,
+  id: 10,
   name: 'very warm',
   type: 'Temperature',
 }, {
-  id: 10,
+  id: 11,
   name: 'warmest',
   type: 'Temperature',
 }]
@@ -144,8 +154,7 @@ const weathers = [{
 const suggestions = [{
   weatherId: 1,
   itemId: 1
-},
-{
+}, {
   weatherId: 1,
   itemId: 2
 }, {
@@ -153,90 +162,93 @@ const suggestions = [{
   itemId: 3
 }, {
   weatherId: 2,
+  itemId: 19
+}, {
+  weatherId: 3,
   itemId: 4
 }, {
-  weatherId: 3,
+  weatherId: 4,
   itemId: 5
 }, {
-  weatherId: 3,
+  weatherId: 4,
   itemId: 9
 }, {
-  weatherId: 3,
+  weatherId: 4,
   itemId: 12
 }, {
-  weatherId: 3,
+  weatherId: 4,
   itemId: 13
 }, {
-  weatherId: 3,
+  weatherId: 4,
   itemId: 18
 }, {
-  weatherId: 4,
+  weatherId: 5,
   itemId: 5
 }, {
-  weatherId: 4,
+  weatherId: 5,
   itemId: 9
 }, {
-  weatherId: 4,
+  weatherId: 5,
   itemId: 18
 }, {
-  weatherId: 5,
+  weatherId: 6,
   itemId: 6
 }, {
-  weatherId: 5,
+  weatherId: 6,
   itemId: 8
 }, {
-  weatherId: 5,
+  weatherId: 6,
   itemId: 9
 }, {
-  weatherId: 5,
+  weatherId: 6,
   itemId: 18
 }, {
-  weatherId: 6,
+  weatherId: 7,
   itemId: 6
 }, {
-  weatherId: 6,
+  weatherId: 7,
   itemId: 9
 }, {
-  weatherId: 7,
+  weatherId: 8,
   itemId: 7
 }, {
-  weatherId: 7,
+  weatherId: 8,
   itemId: 9
 }, {
-  weatherId: 8,
+  weatherId: 9,
   itemId: 10
 }, {
-  weatherId: 8,
+  weatherId: 9,
   itemId: 11
 }, {
-  weatherId: 8,
+  weatherId: 9,
   itemId: 14
 }, {
-  weatherId: 9,
+  weatherId: 10,
   itemId: 10
 }, {
-  weatherId: 9,
+  weatherId: 10,
   itemId: 11
 }, {
-  weatherId: 9,
+  weatherId: 10,
   itemId: 15
 }, {
-  weatherId: 9,
+  weatherId: 10,
   itemId: 17
 }, {
-  weatherId: 10,
+  weatherId: 11,
   itemId: 10
 }, {
-  weatherId: 10,
+  weatherId: 11,
   itemId: 11
 }, {
-  weatherId: 10,
+  weatherId: 11,
   itemId: 15
 }, {
-  weatherId: 10,
+  weatherId: 11,
   itemId: 16
 }, {
-  weatherId: 10,
+  weatherId: 11,
   itemId: 17
 }]
 

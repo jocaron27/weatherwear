@@ -5,7 +5,7 @@ import {fetchWeather, setDay, setUnit} from '../store'
 import Search from './search'
 
 function Weather(props) {
-  const {location, latitude, longitude, date, summary, icon, precip, lo, hi, handleYesterDay, handleTomorrow, day, unit, handleUnitChange} = props;
+  const {location, latitude, longitude, date, summary, icon, precip, lo, hi, handleYesterDay, handleTomorrow, day, unit, handleUnitChange, preciptype} = props;
   let formattedIcon = icon.replace(/-/g, '_').toUpperCase();
 
   return (
@@ -32,7 +32,7 @@ function Weather(props) {
         <div className="weather-icon">
           <Skycon icon={formattedIcon || 'CLOUDY'} />
         </div>
-        <p className="weather-precip">{Math.round(precip * 100)}% chance of rain</p>
+        <p className="weather-precip">{Math.round(precip * 100)}% chance of {preciptype}</p>
         <div className="weather-temp">
           <form>
           <select name="unit" onChange={handleUnitChange}>
@@ -65,7 +65,8 @@ const mapStateToProps = function(state) {
       lo: state.weather.lo,
       hi: state.weather.hi,
       day: state.weather.day,
-      unit: state.weather.unit
+      unit: state.weather.unit,
+      preciptype: state.weather.preciptype
   };
 };
 

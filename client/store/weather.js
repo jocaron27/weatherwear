@@ -9,6 +9,7 @@ const GET_DATE = 'GET_DATE'
 const GET_SUMMARY = 'GET_SUMMARY'
 const GET_ICON = 'GET_ICON'
 const GET_PRECIP = 'GET_PRECIP'
+const GET_PRECIP_TYPE = 'GET_PRECIP_TYPE'
 const GET_LO = 'GET_LO'
 const GET_HI = 'GET_HI'
 const GET_PRECIP_ID = 'GET_PRECIP_ID'
@@ -26,6 +27,7 @@ const weather = {
     summary: '',
     icon: '',
     precip: 0,
+    precipType: 'rain',
     lo: 0,
     hi: 0,
     precipId: 0,
@@ -41,6 +43,7 @@ const getDate = date => ({type: GET_DATE, date})
 const getSummary = summary => ({type: GET_SUMMARY, summary})
 const getIcon = icon => ({type: GET_ICON, icon})
 const getPrecip = precip => ({type: GET_PRECIP, precip})
+const getPrecipType = preciptype => ({type: GET_PRECIP_TYPE, preciptype})
 const getLo = lo => ({type: GET_LO, lo})
 const getHi = hi => ({type: GET_HI, hi})
 const getPrecipId = id => ({type: GET_PRECIP_ID, id})
@@ -53,35 +56,43 @@ export const setUnit = unit => ({type: SET_UNIT, unit})
  * THUNK CREATORS
  */
 function weatherIdCreator(weatherData) {
-    function setPrecipId(precip) {
-        return (precip > 0.3) ? 1 : 0;
+    function setPrecipId(precip, preciptype) {
+        if (precip > 0.3) {
+            if (preciptype === 'snow') {
+                return 2;
+            } else {
+                return 1;
+            }
+        } else {
+            return 0;
+        }
     }
     function setCloudId(cloud) {
-        return (cloud < 0.2) ? 2 : 0;
+        return (cloud < 0.2) ? 3 : 0;
     }
     function setTempId(hi, lo) {
         let averageTemp = (hi + lo) / 2
         if (averageTemp < 30) {
-            return 3;
-        } else if (averageTemp < 40) {
             return 4;
-        } else if (averageTemp < 50) {
+        } else if (averageTemp < 40) {
             return 5;
-        } else if (averageTemp < 60) {
+        } else if (averageTemp < 50) {
             return 6;
-        } else if (averageTemp < 70) {
+        } else if (averageTemp < 60) {
             return 7;
-        } else if (averageTemp < 80) {
+        } else if (averageTemp < 70) {
             return 8;
-        } else if (averageTemp < 90) {
+        } else if (averageTemp < 80) {
             return 9;
-        } else if (averageTemp >= 90) {
+        } else if (averageTemp < 90) {
             return 10;
+        } else if (averageTemp >= 90) {
+            return 11;
         }
     }
 
     return {
-        precipId: setPrecipId(weatherData.precip),
+        precipId: setPrecipId(weatherData.precip, weatherData.preciptype),
         cloudId: setCloudId(weatherData.cloud),
         tempId: setTempId(weatherData.hi, weatherData.lo)
     }
@@ -102,6 +113,7 @@ export const fetchWeather = (latitude, longitude, day) =>
         dispatch(getSummary(res.data.summary))
         dispatch(getIcon(res.data.icon))
         dispatch(getPrecip(res.data.precip))
+        dispatch(getPrecipType(res.data.preciptype || 'rain'))
         dispatch(getLo(res.data.lo))
         dispatch(getHi(res.data.hi))
         dispatch(getPrecipId(ids.precipId))
@@ -126,6 +138,8 @@ export default function (state = weather, action) {
         return Object.assign({}, state, {icon: action.icon})
     case GET_PRECIP:
         return Object.assign({}, state, {precip: action.precip})
+    case GET_PRECIP_TYPE:
+        return Object.assign({}, state, {preciptype: action.preciptype})
     case GET_LO:
         return Object.assign({}, state, {lo: action.lo})
     case GET_HI:

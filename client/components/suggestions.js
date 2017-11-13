@@ -22,7 +22,8 @@ function Suggestions(props) {
 const mapStateToProps = function(state) {
   return {
       suggestions: state.suggestions,
-      items: state.items
+      items: state.items,
+      preciptype: state.weather.preciptype
   };
 };
 

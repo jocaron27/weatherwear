@@ -9102,6 +9102,8 @@ exports.default = function () {
             return Object.assign({}, state, { icon: action.icon });
         case GET_PRECIP:
             return Object.assign({}, state, { precip: action.precip });
+        case GET_PRECIP_TYPE:
+            return Object.assign({}, state, { preciptype: action.preciptype });
         case GET_LO:
             return Object.assign({}, state, { lo: action.lo });
         case GET_HI:
@@ -9139,6 +9141,7 @@ var GET_DATE = 'GET_DATE';
 var GET_SUMMARY = 'GET_SUMMARY';
 var GET_ICON = 'GET_ICON';
 var GET_PRECIP = 'GET_PRECIP';
+var GET_PRECIP_TYPE = 'GET_PRECIP_TYPE';
 var GET_LO = 'GET_LO';
 var GET_HI = 'GET_HI';
 var GET_PRECIP_ID = 'GET_PRECIP_ID';
@@ -9156,6 +9159,7 @@ var weather = {
     summary: '',
     icon: '',
     precip: 0,
+    precipType: 'rain',
     lo: 0,
     hi: 0,
     precipId: 0,
@@ -9177,6 +9181,9 @@ var getIcon = function getIcon(icon) {
 };
 var getPrecip = function getPrecip(precip) {
     return { type: GET_PRECIP, precip: precip };
+};
+var getPrecipType = function getPrecipType(preciptype) {
+    return { type: GET_PRECIP_TYPE, preciptype: preciptype };
 };
 var getLo = function getLo(lo) {
     return { type: GET_LO, lo: lo };
@@ -9204,35 +9211,43 @@ var setUnit = exports.setUnit = function setUnit(unit) {
  * THUNK CREATORS
  */
 function weatherIdCreator(weatherData) {
-    function setPrecipId(precip) {
-        return precip > 0.3 ? 1 : 0;
+    function setPrecipId(precip, preciptype) {
+        if (precip > 0.3) {
+            if (preciptype === 'snow') {
+                return 2;
+            } else {
+                return 1;
+            }
+        } else {
+            return 0;
+        }
     }
     function setCloudId(cloud) {
-        return cloud < 0.2 ? 2 : 0;
+        return cloud < 0.2 ? 3 : 0;
     }
     function setTempId(hi, lo) {
         var averageTemp = (hi + lo) / 2;
         if (averageTemp < 30) {
-            return 3;
-        } else if (averageTemp < 40) {
             return 4;
-        } else if (averageTemp < 50) {
+        } else if (averageTemp < 40) {
             return 5;
-        } else if (averageTemp < 60) {
+        } else if (averageTemp < 50) {
             return 6;
-        } else if (averageTemp < 70) {
+        } else if (averageTemp < 60) {
             return 7;
-        } else if (averageTemp < 80) {
+        } else if (averageTemp < 70) {
             return 8;
-        } else if (averageTemp < 90) {
+        } else if (averageTemp < 80) {
             return 9;
-        } else if (averageTemp >= 90) {
+        } else if (averageTemp < 90) {
             return 10;
+        } else if (averageTemp >= 90) {
+            return 11;
         }
     }
 
     return {
-        precipId: setPrecipId(weatherData.precip),
+        precipId: setPrecipId(weatherData.precip, weatherData.preciptype),
         cloudId: setCloudId(weatherData.cloud),
         tempId: setTempId(weatherData.hi, weatherData.lo)
     };
@@ -9253,6 +9268,7 @@ var fetchWeather = exports.fetchWeather = function fetchWeather(latitude, longit
             dispatch(getSummary(res.data.summary));
             dispatch(getIcon(res.data.icon));
             dispatch(getPrecip(res.data.precip));
+            dispatch(getPrecipType(res.data.preciptype || 'rain'));
             dispatch(getLo(res.data.lo));
             dispatch(getHi(res.data.hi));
             dispatch(getPrecipId(ids.precipId));
@@ -26719,7 +26735,8 @@ function Suggestions(props) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     suggestions: state.suggestions,
-    items: state.items
+    items: state.items,
+    preciptype: state.weather.preciptype
   };
 };
 
@@ -26768,7 +26785,8 @@ function Weather(props) {
       handleTomorrow = props.handleTomorrow,
       day = props.day,
       unit = props.unit,
-      handleUnitChange = props.handleUnitChange;
+      handleUnitChange = props.handleUnitChange,
+      preciptype = props.preciptype;
 
   var formattedIcon = icon.replace(/-/g, '_').toUpperCase();
 
@@ -26819,7 +26837,8 @@ function Weather(props) {
         'p',
         { className: 'weather-precip' },
         Math.round(precip * 100),
-        '% chance of rain'
+        '% chance of ',
+        preciptype
       ),
       _react2.default.createElement(
         'div',
@@ -26884,7 +26903,8 @@ var mapStateToProps = function mapStateToProps(state) {
     lo: state.weather.lo,
     hi: state.weather.hi,
     day: state.weather.day,
-    unit: state.weather.unit
+    unit: state.weather.unit,
+    preciptype: state.weather.preciptype
   };
 };
 
@@ -27289,7 +27309,7 @@ exports = module.exports = __webpack_require__(248)();
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans|Barlow+Condensed);", ""]);
 
 // module
-exports.push([module.i, "/*--------- Fonts ---------- */\n/*--------- Large Screens ---------- */\n@media (min-width: 769px) {\n  .glyphicon-menu-down {\n    display: none; } }\n\n/*--------- Mobile ---------- */\n@media (max-width: 768px) {\n  h1.logo {\n    font-size: 12vw !important;\n    text-indent: 0px !important;\n    text-align: center !important; }\n  h1 img {\n    display: none; }\n  .auth-form {\n    width: 85% !important; }\n    .auth-form form input {\n      width: 100% !important; }\n  .weather-suggestions {\n    flex-direction: column;\n    margin-top: 0px !important; }\n  .weather {\n    width: 100% !important;\n    padding: 0px !important; }\n  .weather-info {\n    position: relative !important;\n    margin: auto !important;\n    box-shadow: none !important; }\n  .weather-location {\n    margin-top: 0px; }\n  .suggestions {\n    width: 100% !important;\n    margin-top: 0px !important; }\n  .suggestions-header {\n    text-align: center; }\n  .suggestions-single {\n    width: 100% !important;\n    display: flex;\n    align-items: center; }\n    .suggestions-single img {\n      width: 90% !important; }\n  form {\n    width: 100% !important; }\n  .search {\n    padding: 0px !important; }\n    .search input {\n      position: relative;\n      margin: auto; }\n    .search button {\n      position: relative;\n      margin: auto; } }\n\nbody {\n  /*--------- General ---------- */\n  font-family: 'Open Sans', sans-serif;\n  color: black;\n  width: 100%;\n  background-color: rgba(191, 241, 234, 0.2);\n  /*--------- Nav Bar ---------- */\n  /*--------- Login ---------- */\n  /*--------- Search ---------- */\n  /*--------- Forms ---------- */\n  /*--------- Weather + Suggestions Main Panel ---------- */\n  /*--------- Weather Panel ---------- */\n  /*--------- Suggestions Panel ---------- */ }\n  body h1.logo {\n    background-color: #f2fdfb;\n    border-bottom: #f3e95f 2px solid;\n    font-family: 'Barlow Condensed';\n    color: #1a4a90;\n    font-size: 3vw;\n    text-indent: 46px;\n    margin: 0;\n    padding: 8px 0px 13px 0px; }\n  body h1 img {\n    width: 3%;\n    margin-right: 10px; }\n  body span.end {\n    color: #ed6856; }\n  body a {\n    text-decoration: none; }\n  body label {\n    display: block; }\n  body .glyphicon:hover {\n    cursor: pointer; }\n  body nav {\n    background: black;\n    text-align: right; }\n    body nav a {\n      display: inline-block;\n      margin: 7px 10px;\n      margin-right: 40px;\n      color: #00bcd4; }\n    body nav p {\n      float: left;\n      margin: 7px 10px;\n      margin-left: 40px;\n      color: #00bcd4; }\n  body .auth-form {\n    text-align: center;\n    background-color: rgba(255, 255, 255, 0.7);\n    width: 50%;\n    padding: 25px 0px;\n    position: relative;\n    margin: auto;\n    margin-top: 70px;\n    box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px; }\n    body .auth-form form {\n      display: flex;\n      flex-direction: column; }\n      body .auth-form form div {\n        width: 85%; }\n      body .auth-form form input {\n        width: 75%; }\n    body .auth-form .auth-or {\n      padding: 13px 0px; }\n  body .with-google {\n    text-align: center;\n    background-color: #cc2f2b;\n    color: white;\n    padding: 10px 50px;\n    font-weight: 400 !important; }\n  body .search {\n    display: flex;\n    padding: 7px 0px;\n    color: black; }\n  body form {\n    margin-bottom: 0px !important;\n    display: flex;\n    align-items: center;\n    width: 100%; }\n    body form input {\n      width: 64%;\n      height: 45px;\n      margin-bottom: 0px !important;\n      font-size: 18px;\n      border: black 1px solid;\n      padding-left: 3% !important; }\n    body form button {\n      height: 45px;\n      background: #fc5e26;\n      color: #fff;\n      padding: 14px 37px 14px 37px;\n      border: none;\n      cursor: pointer;\n      margin: 5px 0 5px 10px;\n      text-transform: uppercase;\n      letter-spacing: 1px;\n      font-weight: 700;\n      outline: none;\n      position: relative;\n      transition: all 0.3s; }\n    body form button:hover {\n      box-shadow: 0 5px #c3ecf0; }\n  body .weather-suggestions {\n    display: flex;\n    flex-wrap: wrap;\n    margin-top: 0px; }\n  body .weather {\n    padding: 3%;\n    width: 33%;\n    color: white;\n    text-align: center; }\n    body .weather .weather-info {\n      background-color: rgba(163, 224, 234, 0.59);\n      color: #1a4990;\n      border-bottom: 5px solid #ef5d36;\n      box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px; }\n    body .weather .weather-location {\n      padding-top: 17px; }\n    body .weather .weather-toggle {\n      display: flex;\n      align-items: center;\n      padding-bottom: 12px;\n      padding-top: 16px;\n      background-color: #1a4990;\n      position: relative;\n      margin: auto;\n      color: white; }\n      body .weather .weather-toggle button {\n        background-color: transparent; }\n      body .weather .weather-toggle button:disabled {\n        color: transparent;\n        border: transparent;\n        cursor: auto; }\n    body .weather .glyphicon {\n      margin: auto;\n      border: 1px solid white;\n      border-radius: 100%;\n      padding: 7px;\n      cursor: pointer; }\n    body .weather .weather-date {\n      position: relative;\n      margin: auto; }\n    body .weather .weather-summary {\n      padding-top: 10px; }\n    body .weather .weather-icon {\n      width: 75%;\n      position: relative;\n      margin: auto; }\n    body .weather .weather-precip {\n      font-size: 20px; }\n    body .weather .weather-temp {\n      display: flex;\n      justify-content: space-between;\n      padding: 15px 20px 17px 20px; }\n      body .weather .weather-temp form {\n        width: 10% !important;\n        font-size: 24px; }\n        body .weather .weather-temp form select {\n          background-color: white; }\n      body .weather .weather-temp .weather-temp-nums {\n        display: flex;\n        padding: 0px 19px;\n        font-size: 20px;\n        width: 90%; }\n        body .weather .weather-temp .weather-temp-nums p {\n          padding: 0px 40px; }\n    body .weather .glyphicon-menu-down {\n      margin-bottom: 20px; }\n  body .suggestions {\n    padding: 3%;\n    width: 64%;\n    background-color: white;\n    box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px;\n    margin-top: 55px;\n    margin-bottom: 120px;\n    border-bottom: 5px solid #ef5d36; }\n    body .suggestions .suggestions-header {\n      font-family: 'Lora', serif;\n      max-width: 730px;\n      margin: 0 auto; }\n      body .suggestions .suggestions-header hr {\n        border-top: 2px solid #eee; }\n    body .suggestions .suggestions-items {\n      display: flex;\n      flex-wrap: wrap;\n      margin-left: 23px; }\n    body .suggestions .suggestions-single {\n      margin: 24px;\n      padding: 4px;\n      display: flex;\n      flex-direction: column;\n      text-align: center;\n      width: 25%; }\n      body .suggestions .suggestions-single p {\n        font-size: 17px;\n        margin-top: 5px; }\n    body .suggestions img {\n      width: 100%; }\n", ""]);
+exports.push([module.i, "/*--------- Fonts ---------- */\n/*--------- Large Screens ---------- */\n@media (min-width: 769px) {\n  .glyphicon-menu-down {\n    display: none; } }\n\n/*--------- Mobile ---------- */\n@media (max-width: 768px) {\n  h1.logo {\n    font-size: 12vw !important;\n    text-indent: 0px !important;\n    text-align: center !important; }\n  h1 img {\n    display: none; }\n  .auth-form {\n    width: 85% !important; }\n    .auth-form form input {\n      width: 100% !important; }\n  .weather-suggestions {\n    flex-direction: column;\n    margin-top: 0px !important; }\n  .weather {\n    width: 100% !important;\n    padding: 0px !important; }\n  .weather-info {\n    position: relative !important;\n    margin: auto !important;\n    box-shadow: none !important; }\n  .weather-location {\n    margin-top: 0px; }\n  .suggestions {\n    width: 100% !important;\n    margin-top: 0px !important; }\n  .suggestions-header {\n    text-align: center; }\n  .suggestions-single {\n    width: 100% !important;\n    display: flex;\n    align-items: center; }\n    .suggestions-single img {\n      width: 90% !important; }\n  form {\n    width: 100% !important; }\n  .search {\n    padding: 0px !important; }\n    .search input {\n      position: relative;\n      margin: auto; }\n    .search button {\n      position: relative;\n      margin: auto; } }\n\nbody {\n  /*--------- General ---------- */\n  font-family: 'Open Sans', sans-serif;\n  color: black;\n  width: 100%;\n  background-color: rgba(191, 241, 234, 0.2);\n  /*--------- Nav Bar ---------- */\n  /*--------- Login ---------- */\n  /*--------- Search ---------- */\n  /*--------- Forms ---------- */\n  /*--------- Weather + Suggestions Main Panel ---------- */\n  /*--------- Weather Panel ---------- */\n  /*--------- Suggestions Panel ---------- */ }\n  body h1.logo {\n    background-color: #f2fdfb;\n    border-bottom: #f3e95f 2px solid;\n    font-family: 'Barlow Condensed';\n    color: #1a4a90;\n    font-size: 3vw;\n    text-indent: 46px;\n    margin: 0;\n    padding: 8px 0px 13px 0px; }\n  body h1 img {\n    width: 3%;\n    margin-right: 10px; }\n  body span.end {\n    color: #ed6856; }\n  body a {\n    text-decoration: none; }\n  body label {\n    display: block; }\n  body .glyphicon:hover {\n    cursor: pointer; }\n  body nav {\n    background: black;\n    text-align: right; }\n    body nav a {\n      display: inline-block;\n      margin: 7px 10px;\n      margin-right: 40px;\n      color: #00bcd4; }\n    body nav p {\n      float: left;\n      margin: 7px 10px;\n      margin-left: 40px;\n      color: #00bcd4; }\n  body .auth-form {\n    text-align: center;\n    background-color: rgba(255, 255, 255, 0.7);\n    width: 50%;\n    padding: 25px 0px;\n    position: relative;\n    margin: auto;\n    margin-top: 70px;\n    box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px; }\n    body .auth-form form {\n      display: flex;\n      flex-direction: column; }\n      body .auth-form form div {\n        width: 85%; }\n      body .auth-form form input {\n        width: 75%; }\n    body .auth-form .auth-or {\n      padding: 13px 0px; }\n  body .with-google {\n    text-align: center;\n    background-color: #cc2f2b;\n    color: white;\n    padding: 10px 50px;\n    font-weight: 400 !important; }\n  body .search {\n    display: flex;\n    padding: 7px 0px;\n    color: black; }\n  body form {\n    margin-bottom: 0px !important;\n    display: flex;\n    align-items: center;\n    width: 100%; }\n    body form input {\n      width: 64%;\n      height: 45px;\n      margin-bottom: 0px !important;\n      font-size: 18px;\n      border: black 1px solid;\n      padding-left: 3% !important; }\n    body form button {\n      height: 45px;\n      background: #fc5e26;\n      color: #fff;\n      padding: 14px 37px 14px 37px;\n      border: none;\n      cursor: pointer;\n      margin: 5px 0 5px 10px;\n      text-transform: uppercase;\n      letter-spacing: 1px;\n      font-weight: 700;\n      outline: none;\n      position: relative;\n      transition: all 0.3s; }\n    body form button:hover {\n      box-shadow: 0 5px #c3ecf0; }\n  body .weather-suggestions {\n    display: flex;\n    flex-wrap: wrap;\n    margin-top: 0px; }\n  body .weather {\n    padding: 3%;\n    width: 33%;\n    color: white;\n    text-align: center; }\n    body .weather .weather-info {\n      background-color: rgba(163, 224, 234, 0.59);\n      color: #1a4990;\n      border-bottom: 5px solid #ef5d36;\n      box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px; }\n    body .weather .weather-location {\n      padding-top: 17px; }\n    body .weather .weather-toggle {\n      display: flex;\n      align-items: center;\n      padding-bottom: 12px;\n      padding-top: 16px;\n      background-color: #1a4990;\n      position: relative;\n      margin: auto;\n      color: white; }\n      body .weather .weather-toggle button {\n        background-color: transparent; }\n      body .weather .weather-toggle button:disabled {\n        color: transparent;\n        border: transparent;\n        cursor: auto; }\n    body .weather .glyphicon {\n      margin: auto;\n      border: 1px solid white;\n      border-radius: 100%;\n      padding: 7px;\n      cursor: pointer; }\n    body .weather .weather-date {\n      position: relative;\n      margin: auto; }\n    body .weather .weather-summary {\n      padding-top: 10px;\n      width: 90%; }\n    body .weather .weather-icon {\n      width: 75%;\n      position: relative;\n      margin: auto; }\n    body .weather .weather-precip {\n      font-size: 20px; }\n    body .weather .weather-temp {\n      display: flex;\n      justify-content: space-between;\n      padding: 15px 20px 17px 20px; }\n      body .weather .weather-temp form {\n        width: 10% !important;\n        font-size: 24px; }\n        body .weather .weather-temp form select {\n          background-color: white; }\n      body .weather .weather-temp .weather-temp-nums {\n        display: flex;\n        padding: 0px 19px;\n        font-size: 20px;\n        width: 90%; }\n        body .weather .weather-temp .weather-temp-nums p {\n          padding: 0px 40px; }\n    body .weather .glyphicon-menu-down {\n      margin-bottom: 20px; }\n  body .suggestions {\n    padding: 3%;\n    width: 64%;\n    background-color: white;\n    box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px;\n    margin-top: 55px;\n    margin-bottom: 120px;\n    border-bottom: 5px solid #ef5d36; }\n    body .suggestions .suggestions-header {\n      font-family: 'Lora', serif;\n      max-width: 730px;\n      margin: 0 auto; }\n      body .suggestions .suggestions-header hr {\n        border-top: 2px solid #eee; }\n    body .suggestions .suggestions-items {\n      display: flex;\n      flex-wrap: wrap;\n      margin-left: 23px; }\n    body .suggestions .suggestions-single {\n      margin: 24px;\n      padding: 4px;\n      display: flex;\n      flex-direction: column;\n      text-align: center;\n      width: 25%; }\n      body .suggestions .suggestions-single p {\n        font-size: 17px;\n        margin-top: 5px; }\n    body .suggestions img {\n      width: 100%; }\n", ""]);
 
 // exports
 
