@@ -8,10 +8,7 @@ import suggestions from './suggestion'
 import items from './item'
 
 const reducer = combineReducers({user, weather, suggestions, items})
-const middleware = composeWithDevTools(applyMiddleware(
-  thunkMiddleware,
-  createLogger({collapsed: true})
-))
+const middleware = applyMiddleware(thunkMiddleware)
 const store = createStore(reducer, middleware)
 
 export default store

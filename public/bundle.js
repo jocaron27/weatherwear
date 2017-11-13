@@ -6464,7 +6464,7 @@ var _item2 = _interopRequireDefault(_item);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducer = (0, _redux.combineReducers)({ user: _user2.default, weather: _weather2.default, suggestions: _suggestion2.default, items: _item2.default });
-var middleware = (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)({ collapsed: true })));
+var middleware = (0, _redux.applyMiddleware)(_reduxThunk2.default);
 var store = (0, _redux.createStore)(reducer, middleware);
 
 exports.default = store;
