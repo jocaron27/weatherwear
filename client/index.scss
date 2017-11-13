@@ -1,5 +1,5 @@
 /*--------- Fonts ---------- */
-@import url('https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans|Barlow+Condensed');
 
 /*--------- Large Screens ---------- */
 @media (min-width: 769px) {
@@ -13,6 +13,7 @@
   h1 {
     &.logo {
       font-size: 12vw !important;
+      text-indent: 0px !important;
     }
 
     img {
@@ -100,26 +101,25 @@ body {
 
   h1 {
     &.logo {
-      background-color: #194890;
-      border-bottom: #f3e95f 5px solid;
-      font-family: 'Lora';
-      font-weight: 700;
-      color: #11d7ef;
-      font-size: 5vw;
+      background-color: #f2fdfb;
+      border-bottom: #f3e95f 2px solid;
+      font-family: 'Barlow Condensed';
+      color: #1a4a90;
+      font-size: 3vw;
       text-indent: 46px;
       margin: 0;
-      padding: 11px 0px 27px 0px;
+      padding: 8px 0px 13px 0px;
     }
 
     img { 
-      width: 5%; 
-      margin-right: 20px;
+      width: 3%; 
+      margin-right: 10px;
     }
   }
 
   span {
     &.end {
-      color: #f3e95e;
+      color: #ed6856;
     }
   }
   
@@ -241,7 +241,7 @@ body {
   .weather-suggestions {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 15px;
+    margin-top: 0px;
   }
 
 /*--------- Weather Panel ---------- */
