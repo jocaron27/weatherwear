@@ -111,11 +111,9 @@ body {
       padding: 11px 0px 27px 0px;
     }
 
-    img {
-      float: right; 
-      margin-top: 9px; 
+    img { 
       width: 5%; 
-      margin-right: 42px;
+      margin-right: 20px;
     }
   }
 
@@ -166,6 +164,7 @@ body {
     position: relative;
     margin: auto;
     margin-top: 70px;
+    box-shadow: rgba(105, 105, 105, 0.23) 4px 4px 17px;
 
     form {
       display: flex;
@@ -302,6 +301,12 @@ body {
       padding-top: 10px;
     }
 
+    .weather-icon {
+      width: 75%;
+      position: relative;
+      margin: auto;
+    }
+
     .weather-precip {
       font-size: 20px;
     }
@@ -309,9 +314,27 @@ body {
     .weather-temp {
       display: flex;
       justify-content: space-between;
-      padding-left: 60px;
-      padding-right: 60px;
-      padding-bottom: 20px;
+      padding: 15px 20px 17px 20px;
+
+      form {
+        width: 10% !important;
+        font-size: 24px;
+
+        select {
+          background-color: white;
+        }
+      }
+
+      .weather-temp-nums {
+        display: flex;
+        padding: 0px 19px;
+        font-size: 20px;
+        width: 90%;
+
+        p {
+          padding: 0px 40px;
+        }
+      }
     }
 
     .glyphicon-menu-down {

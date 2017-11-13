@@ -26,12 +26,7 @@ const Main = (props) => {
               <UserHome />
               <a href="#" onClick={handleClick}>Logout</a>
             </nav>
-            <h1 className="logo">weather<span className="end">a</span>wear
-              <img
-                className="suggestions-single-icon"
-                src="/umbrella.png"
-              />
-            </h1>
+            <h1 className="logo"><img className="suggestions-single-icon" src="/umbrella.png" />weather<span className="end">a</span>wear</h1>
             <div className="weather-suggestions">
               <Weather />
               <Suggestions />
@@ -43,12 +38,7 @@ const Main = (props) => {
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </nav>
-            <h1 className="logo">weather<span className="end">a</span>wear
-              <img
-                className="suggestions-single-icon"
-                src="/umbrella.png"
-              />
-            </h1>
+            <h1 className="logo"><img className="suggestions-single-icon" src="/umbrella.png" />weather<span className="end">a</span>wear</h1>
             </div>
         }
       {children}

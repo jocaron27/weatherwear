@@ -34,14 +34,16 @@ function Weather(props) {
         </div>
         <p className="weather-precip">{Math.round(precip * 100)}% chance of rain</p>
         <div className="weather-temp">
-          <p>Low: {(unit === 'F') ? lo : Math.round((lo - 32) * (5 / 9))}°{unit}</p>
           <form>
           <select name="unit" onChange={handleUnitChange}>
             <option value="F">F</option>
             <option value="C">C</option>
           </select>
           </form>
-          <p>High: {(unit === 'F') ? hi : Math.round((hi - 32) * (5 / 9))}°{unit}</p>
+          <div className="weather-temp-nums">
+            <p>Low: {(unit === 'F') ? Math.round(lo) : Math.round((lo - 32) * (5 / 9))}°{unit}</p>
+            <p>High: {(unit === 'F') ? Math.round(hi) : Math.round((hi - 32) * (5 / 9))}°{unit}</p>
+          </div>
         </div>
         <a href="#suggestions">
           <span className="glyphicon glyphicon-menu-down" />
