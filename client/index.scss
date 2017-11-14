@@ -300,7 +300,10 @@ body {
 
     .weather-summary {
       padding-top: 10px;
-      width: 90%;
+      padding-bottom: 10px;
+      width: 80%;
+      position: relative;
+      margin: auto;
     }
 
     .weather-icon {
